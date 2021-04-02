@@ -52,9 +52,9 @@
     const run = (
         text = $('#input').value || defaultText,
         model = $('[name="model"]:checked').value || defaultModel) => {
-        displacy.parse(text, model, settings);
-        updateView(text, model, settings);
-        updateURL(text, model, settings);
+        displacy.parse(text, model);
+        updateView(text, model);
+        updateURL(text, model);
     }
 
 
@@ -67,7 +67,7 @@
 
     // Update View
 
-    const updateView = (text, model, settings) => {
+    const updateView = (text, model) => {
         $('#input').value = text;
         $(`[value="${model}"]`).checked = true;
     }
@@ -75,13 +75,13 @@
 
     // Update URL
 
-    const updateURL = (text, model, settings) => {
+    const updateURL = (text, model) => {
         const url = [
             'text=' + encodeURIComponent(text),
             'model=' + encodeURIComponent(model)
         ];
 
-        history.pushState({ text, model, settings }, null, '?' + url.join('&'));
+        history.pushState({ text, model }, null, '?' + url.join('&'));
     }
 
     // Get URL Query Variables
