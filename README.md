@@ -103,9 +103,7 @@ Example request:
 ```json
 {
   "text": "They ate the pizza with anchovies",
-  "model": "en",
-  "collapse_punctuation": 0,
-  "collapse_phrases": 1
+  "model": "en"
 }
 ```
 
@@ -113,8 +111,6 @@ Example request:
 | ---------------------- | ------- | -------------------------------------------------------- |
 | `text`                 | string  | text to be parsed                                        |
 | `model`                | string  | identifier string for a model installed on the server    |
-| `collapse_punctuation` | boolean | Merge punctuation onto the preceding token?              |
-| `collapse_phrases`     | boolean | Merge noun chunks and named entities into single tokens? |
 
 Example request using the Python [Requests library](http://docs.python-requests.org/en/master/):
 
@@ -125,7 +121,7 @@ import requests
 url = "http://localhost:8000/dep"
 message_text = "They ate the pizza with anchovies"
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en_core_web_sm'}
+d = {'text': message_text, 'model': 'en_core_web_md'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()
@@ -271,7 +267,7 @@ import requests
 url = "http://localhost:8000/ent"
 message_text = "When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously."
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en_core_web_sm'}
+d = {'text': message_text, 'model': 'en_core_web_md'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()
@@ -341,7 +337,7 @@ import requests
 url = "http://localhost:8000/sents"
 message_text = "In 2012 I was a mediocre developer. But today I am at least a bit better."
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en_core_web_sm'}
+d = {'text': message_text, 'model': 'en_core_web_md'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()
@@ -382,7 +378,7 @@ import requests
 url = "http://localhost:8000/sents_dep"
 message_text = "In 2012 I was a mediocre developer. But today I am at least a bit better."
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en_core_web_sm'}
+d = {'text': message_text, 'model': 'en_core_web_md'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()

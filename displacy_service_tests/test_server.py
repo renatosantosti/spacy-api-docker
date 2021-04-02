@@ -16,7 +16,7 @@ def api():
 def test_deps(api):
     result = api.simulate_post(
         path='/dep',
-        body='{{"text": "This is a test.", "model": "{model}", "collapse_punctuation": false, "collapse_phrases": false}}'.format(model=model)
+        body='{{"text": "This is a test.", "model": "{model}"}}'.format(model=model)
     )
     result = json.loads(result.text)
     words = [w['text'] for w in result['words']]
@@ -28,6 +28,7 @@ def test_ents(api):
         path='/ent',
         body='{{"text": "What a great company Google is.", "model": "{model}"}}'.format(model=model))
     ents = json.loads(result.text)
+    print(ents)
     assert ents == [
         {"start": 21, "end": 27, "type": "ORG", "text": "Google"}]
 
@@ -44,7 +45,7 @@ def test_sents(api):
 def test_sents_dep(api):
     sentence_parse = api.simulate_post(
         path='/sents_dep',
-        body='{{"text": "This a test that should split into sentences! This is the second. Is this the third?", "model": "{model}", "collapse_punctuation": false, "collapse_phrases": false}}'.format(model=model)
+        body='{{"text": "This a test that should split into sentences! This is the second. Is this the third?", "model": "{model}"}}'.format(model=model)
     )
     sentences = [sp["sentence"] for sp in sentence_parse.json]
     assert sentences == [

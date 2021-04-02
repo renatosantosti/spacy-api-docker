@@ -11,9 +11,7 @@ class displaCy {
 
     this.format = options.format || 'spacy';
     this.defaultText = options.defaultText || 'Hello World.';
-    this.defaultModel = options.defaultModel || 'en_core_web_sm';
-    this.collapsePunct = (options.collapsePunct != undefined) ? options.collapsePunct : true;
-    this.collapsePhrase = (options.collapsePhrase != undefined) ? options.collapsePhrase : true;
+    this.defaultModel = options.defaultModel || 'en_core_web_md';
 
     this.onStart = options.onStart || false;
     this.onSuccess = options.onSuccess || false;
@@ -52,9 +50,7 @@ class displaCy {
 
     xhr.send(JSON.stringify({
       text,
-      model,
-      collapse_punctuation: (settings.collapsePunct != undefined) ? settings.collapsePunct : this.collapsePunct,
-      collapse_phrases: (settings.collapsePhrase != undefined) ? settings.collapsePhrase : this.collapsePhrase
+      model
     }));
   }
 

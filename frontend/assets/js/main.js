@@ -6,7 +6,7 @@
 
 {
     const defaultText = 'displaCy uses JavaScript, SVG and CSS to show you how computers understand language';
-    const defaultModel = 'en_core_web_sm';
+    const defaultModel = 'en_core_web_md';
     const loading = () => document.body.classList.toggle('loading');
     const onError = (err) => $('#error').style.display = 'block';
 
@@ -15,8 +15,6 @@
         engine: 'spacy',
         defaultText: defaultText,
         defaultModel: defaultModel,
-        collapsePunct: true,
-        collapsePhrase: true,
         distance: 200,
         offsetX: 150,
         arrowSpacing: 10,
@@ -41,10 +39,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         const text = getQueryVar('text') || getQueryVar('full') || getQueryVar('manual') || getQueryVar('steps') || defaultText;
         const model = getQueryVar('model') || defaultModel;
-        const collapsePunct = (getQueryVar('cpu')) ? (getQueryVar('cpu') == 0 ? 0 : 1) : 1;
-        const collapsePhrase = (getQueryVar('cph')) ? (getQueryVar('cph') == 0 ? 0 : 1) : 1;
-
-        const args = [text, model, { collapsePhrase, collapsePunct }];
+        
+        const args = [text, model];
 
         if (getQueryVar('text')) updateView(...args);
         if (getQueryVar('full') || getQueryVar('manual') || getQueryVar('steps')) updateURL(...args);
@@ -55,11 +51,7 @@
 
     const run = (
         text = $('#input').value || defaultText,
-        model = $('[name="model"]:checked').value || defaultModel,
-        settings = {
-            collapsePunct: $('#settings-punctuation').checked,
-            collapsePhrase: $('#settings-phrases').checked
-        }) => {
+        model = $('[name="model"]:checked').value || defaultModel) => {
         displacy.parse(text, model, settings);
         updateView(text, model, settings);
         updateURL(text, model, settings);
@@ -78,8 +70,6 @@
     const updateView = (text, model, settings) => {
         $('#input').value = text;
         $(`[value="${model}"]`).checked = true;
-        $('#settings-punctuation').checked = settings.collapsePunct;
-        $('#settings-phrases').checked = settings.collapsePhrase;
     }
 
 
@@ -88,9 +78,7 @@
     const updateURL = (text, model, settings) => {
         const url = [
             'text=' + encodeURIComponent(text),
-            'model=' + encodeURIComponent(model),
-            'cpu=' + (settings.collapsePunct ? 1 : 0),
-            'cph=' + (settings.collapsePhrase ? 1 : 0)
+            'model=' + encodeURIComponent(model)
         ];
 
         history.pushState({ text, model, settings }, null, '?' + url.join('&'));

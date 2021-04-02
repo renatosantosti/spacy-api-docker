@@ -5,7 +5,7 @@ from spacy.cli import download
 
 
 def download_models():
-    languages = os.getenv("languages", "en_core_web_sm").split()
+    languages = os.getenv("languages", "en_core_web_md").split()
     for lang in languages:
         download(model=lang, direct=False)
 
