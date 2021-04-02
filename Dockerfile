@@ -17,11 +17,13 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
   apt-get install -y nodejs &&\
   apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
-# Copy and set up the app
-COPY . /app
+COPY ./build_sassc.sh /app/build_sassc.sh
 
 # Build SASSC
 RUN bash /app/build_sassc.sh
+
+# Copy and set up the app
+COPY . /app
 
 # Build app
 RUN cd /app/frontend && make clean && make

@@ -10,31 +10,30 @@ before_install:
   - docker login -u="$HEROKUUSER" -p="$HEROKUPASS" $HEROKUREPO
 
 install:
-  - travis_wait 30 docker build -t jgontrum/spacyapi:base_v2 .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:en_v2 -f docker/en/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:en_v2_lg -f docker/en/Dockerfile.lg .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:en_v2_md -f docker/en/Dockerfile.md .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:de_v2 -f docker/de/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:es_v2 -f docker/es/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:fr_v2 -f docker/fr/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:nl_v2 -f docker/nl/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:pt_v2 -f docker/pt/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:it_v2 -f docker/it/Dockerfile .
-  - travis_wait 30 docker build -t jgontrum/spacyapi:all_v2 -f docker/all/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:base_v3 .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:en_v3 -f docker/en/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:en_v3_lg -f docker/en/Dockerfile.lg .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:de_v3 -f docker/de/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:es_v3 -f docker/es/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:fr_v3 -f docker/fr/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:nl_v3 -f docker/nl/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:pt_v3 -f docker/pt/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:it_v3 -f docker/it/Dockerfile .
+  - travis_wait 30 docker build -t bbieniek/spacyapi:all_v3 -f docker/all/Dockerfile .
 
 after_success:
-  - docker push jgontrum/spacyapi:base_v2
-  - docker push jgontrum/spacyapi:en_v2
-  - docker push jgontrum/spacyapi:en_v2_lg
-  - docker push jgontrum/spacyapi:en_v2_md
-  - docker push jgontrum/spacyapi:de_v2
-  - docker push jgontrum/spacyapi:es_v2
-  - docker push jgontrum/spacyapi:fr_v2
-  - docker push jgontrum/spacyapi:pt_v2
-  - docker push jgontrum/spacyapi:it_v2
-  - docker push jgontrum/spacyapi:nl_v2
-  - docker push jgontrum/spacyapi:all_v2
-  - docker tag jgontrum/spacyapi:en_v2 registry.heroku.com/spacy-en/web
+  - docker push bbieniek/spacyapi:base_v3
+  - docker push bbieniek/spacyapi:en_v3
+  - docker push bbieniek/spacyapi:en_v3_lg
+  - docker push bbieniek/spacyapi:en_v3_md
+  - docker push bbieniek/spacyapi:de_v3
+  - docker push bbieniek/spacyapi:es_v3
+  - docker push bbieniek/spacyapi:fr_v3
+  - docker push bbieniek/spacyapi:pt_v3
+  - docker push bbieniek/spacyapi:it_v3
+  - docker push bbieniek/spacyapi:nl_v3
+  - docker push bbieniek/spacyapi:all_v3
+  - docker tag bbieniek/spacyapi:en_v3 registry.heroku.com/spacy-en/web
   - docker push registry.heroku.com/spacy-en/web
-  - docker tag jgontrum/spacyapi:de_v2 registry.heroku.com/spacy-de/web
+  - docker tag bbieniek/spacyapi:de_v3 registry.heroku.com/spacy-de/web
   - docker push registry.heroku.com/spacy-de/web

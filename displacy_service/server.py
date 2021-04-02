@@ -121,13 +121,11 @@ class DepResource(object):
         req_body = req.bounded_stream.read()
         json_data = json.loads(req_body.decode('utf8'))
         text = json_data.get('text')
-        model_name = json_data.get('model', 'en')
-        collapse_punctuation = json_data.get('collapse_punctuation', True)
-        collapse_phrases = json_data.get('collapse_phrases', True)
+        model_name = json_data.get('model', 'en_core_web_md')
 
         try:
             model = get_model(model_name)
-            parse = Parse(model, text, collapse_punctuation, collapse_phrases)
+            parse = Parse(model, text)
             resp.body = json.dumps(parse.to_json(), sort_keys=True, indent=2)
             resp.content_type = 'text/string'
             resp.append_header('Access-Control-Allow-Origin', "*")
@@ -145,7 +143,7 @@ class EntResource(object):
         req_body = req.bounded_stream.read()
         json_data = json.loads(req_body.decode('utf8'))
         text = json_data.get('text')
-        model_name = json_data.get('model', 'en')
+        model_name = json_data.get('model', 'en_core_web_md')
         try:
             model = get_model(model_name)
             entities = Entities(model, text)
@@ -167,7 +165,7 @@ class SentsResources(object):
         req_body = req.bounded_stream.read()
         json_data = json.loads(req_body.decode('utf8'))
         text = json_data.get('text')
-        model_name = json_data.get('model', 'en')
+        model_name = json_data.get('model', 'en_core_web_md')
 
         try:
             model = get_model(model_name)
@@ -190,16 +188,12 @@ class SentsDepResources(object):
         req_body = req.bounded_stream.read()
         json_data = json.loads(req_body.decode('utf8'))
         text = json_data.get('text')
-        model_name = json_data.get('model', 'en')
-        collapse_punctuation = json_data.get('collapse_punctuation', False)
-        collapse_phrases = json_data.get('collapse_phrases', False)
+        model_name = json_data.get('model', 'en_core_web_md')
 
         try:
             model = get_model(model_name)
             sentences = SentencesDependencies(model,
-                                              text,
-                                              collapse_punctuation=collapse_punctuation,
-                                              collapse_phrases=collapse_phrases)
+                                              text)
 
             resp.body = json.dumps(sentences.to_json(),
                                    sort_keys=True,
