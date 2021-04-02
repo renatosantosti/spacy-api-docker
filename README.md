@@ -3,8 +3,6 @@
 **Ready-to-use Docker images for the [spaCy NLP library](https://github.com/explosion/spaCy).**
 
 ---
-**[spaCy API Docker](https://github.com/jgontrum/spacy-api-docker) is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial**
-
 
 [<img src="https://images.gitads.io/spacy-api-docker" alt="GitAds"/>](https://tracking.gitads.io/?repo=spacy-api-docker)
 ---
@@ -17,9 +15,9 @@
 - Dependency parsing visualisation with [displaCy](https://demos.explosion.ai/displacy/).
 - Docker images for **English**, **German**, **Spanish**, **Italian**, **Dutch** and **French**.
 - Automated builds to stay up to date with spaCy.
-- Current spaCy version: 2.0.16
+- Current spaCy version: 3.0.0
 
-Please note that this is a completely new API and is incompatible with the previous one. If you still need them, use `jgontrum/spacyapi:en-legacy` or `jgontrum/spacyapi:de-legacy`.
+This set of docker files is based on (https://github.com/jgontrum/spacy-api-docker)
 
 _Documentation, API- and frontend code based upon [spaCy REST services](https://github.com/explosion/spacy-services) by [Explosion AI](https://explosion.ai)._
 
@@ -29,31 +27,21 @@ _Documentation, API- and frontend code based upon [spaCy REST services](https://
 
 | Image                       | Description                                                       |
 | --------------------------- | ----------------------------------------------------------------- |
-| jgontrum/spacyapi:base_v2   | Base image for spaCy 2.0, containing no language model            |
-| jgontrum/spacyapi:en_v2     | English language model, spaCy 2.0                                 |
-| jgontrum/spacyapi:de_v2     | German language model, spaCy 2.0                                  |
-| jgontrum/spacyapi:es_v2     | Spanish language model, spaCy 2.0                                 |
-| jgontrum/spacyapi:fr_v2     | French language model, spaCy 2.0                                  |
-| jgontrum/spacyapi:pt_v2     | Portuguese language model, spaCy 2.0                              |
-| jgontrum/spacyapi:it_v2     | Italian language model, spaCy 2.0                                 |
-| jgontrum/spacyapi:nl_v2     | Dutch language model, spaCy 2.0                                   |
-| jgontrum/spacyapi:all_v2    | Contains EN, DE, ES, PT, NL, IT and FR language models, spaCy 2.0 |
-| _OLD RELEASES_              |                                                                   |
-| jgontrum/spacyapi:base      | Base image, containing no language model                          |
-| jgontrum/spacyapi:latest    | English language model                                            |
-| jgontrum/spacyapi:en        | English language model                                            |
-| jgontrum/spacyapi:de        | German language model                                             |
-| jgontrum/spacyapi:es        | Spanish language model                                            |
-| jgontrum/spacyapi:fr        | French language model                                             |
-| jgontrum/spacyapi:all       | Contains EN, DE, ES and FR language models                        |
-| jgontrum/spacyapi:en-legacy | Old API with English model                                        |
-| jgontrum/spacyapi:de-legacy | Old API with German model                                         |
+| bbieniek/spacyapi:base_v3   | Base image for spaCy 3.0, containing no language model            |
+| bbieniek/spacyapi:en_v3     | English language model, spaCy 3.0                                 |
+| bbieniek/spacyapi:de_v3     | German language model, spaCy 3.0                                  |
+| bbieniek/spacyapi:es_v3     | Spanish language model, spaCy 3.0                                 |
+| bbieniek/spacyapi:fr_v3     | French language model, spaCy 3.0                                  |
+| bbieniek/spacyapi:pt_v3     | Portuguese language model, spaCy 3.0                              |
+| bbieniek/spacyapi:it_v3     | Italian language model, spaCy 3.0                                 |
+| bbieniek/spacyapi:nl_v3     | Dutch language model, spaCy 3.0                                   |
+| bbieniek/spacyapi:all_v3    | Contains EN, DE, ES, PT, NL, IT and FR language models, spaCy 3.0 |
 
 ---
 
 ## Usage
 
-`docker run -p "127.0.0.1:8080:80" jgontrum/spacyapi:en_v2`
+`docker run -p "127.0.0.1:8080:80" bbieniek/spacyapi:en_v3`
 
 All models are loaded at start up time. Depending on the model size and server
 performance, this can take a few minutes.
@@ -67,7 +55,7 @@ version: '2'
 
 services:
   spacyapi:
-    image: jgontrum/spacyapi:en_v2
+    image: bbieniek/spacyapi:en_v3
     ports:
       - "127.0.0.1:8080:80"
     restart: always
@@ -78,7 +66,7 @@ services:
 
 In order to run unit tests locally `pytest` is included.
 
-`docker run -it jgontrum/spacyapi:en_v2 app/env/bin/pytest app/displacy_service_tests`
+`docker run -it bbieniek/spacyapi:en_v3 app/env/bin/pytest app/displacy_service_tests`
 
 ### Special Cases
 
@@ -94,7 +82,7 @@ or `en_core_web_lg_special_cases`. They are configured as a single comma-delimit
 
 Use the following syntax to specify basic special case rules, such as for preserving contractions:
 
-`docker run -p "127.0.0.1:8080:80" -e en_special_cases="isn't,doesn't" jgontrum/spacyapi:en_v2`
+`docker run -p "127.0.0.1:8080:80" -e en_special_cases="isn't,doesn't" bbieniek/spacyapi:en_v3`
 
 You can also configure this in a `.env` file if using `docker-compose` as above.
 
@@ -137,7 +125,7 @@ import requests
 url = "http://localhost:8000/dep"
 message_text = "They ate the pizza with anchovies"
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en'}
+d = {'text': message_text, 'model': 'en_core_web_sm'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()
@@ -283,7 +271,7 @@ import requests
 url = "http://localhost:8000/ent"
 message_text = "When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously."
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en'}
+d = {'text': message_text, 'model': 'en_core_web_sm'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()
@@ -353,7 +341,7 @@ import requests
 url = "http://localhost:8000/sents"
 message_text = "In 2012 I was a mediocre developer. But today I am at least a bit better."
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en'}
+d = {'text': message_text, 'model': 'en_core_web_sm'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()
@@ -394,7 +382,7 @@ import requests
 url = "http://localhost:8000/sents_dep"
 message_text = "In 2012 I was a mediocre developer. But today I am at least a bit better."
 headers = {'content-type': 'application/json'}
-d = {'text': message_text, 'model': 'en'}
+d = {'text': message_text, 'model': 'en_core_web_sm'}
 
 response = requests.post(url, data=json.dumps(d), headers=headers)
 r = response.json()

@@ -17,11 +17,11 @@ class Parse(object):
                     (span.start_char, span.end_char, word.tag_, word.lemma_, word.ent_type_)
                 )
             for span_props in spans:
-                self.doc.merge(*span_props)
+                self.doc.retokenize(*span_props)
 
         if collapse_phrases:
             for np in list(self.doc.noun_chunks):
-                np.merge(np.root.tag_, np.root.lemma_, np.root.ent_type_)
+                np.retokenize(np.root.tag_, np.root.lemma_, np.root.ent_type_)
 
     def to_json(self):
         words = [{'text': w.text, 'tag': w.tag_} for w in self.doc]
@@ -68,7 +68,7 @@ class Sentences(object):
         self.doc = nlp(text)
 
     def to_json(self):
-        sents = [sent.string.strip() for sent in self.doc.sents]
+        sents = [sent.text.strip() for sent in self.doc.sents]
         return sents
 
 
@@ -124,7 +124,7 @@ class SentencesDependencies(object):
                             'dir': 'right'
                         })
 
-            sents.append({'sentence': sent.string.strip(),
+            sents.append({'sentence': sent.text.strip(),
                           'dep_parse': {'words': words,
                                         'arcs': arcs}})
         return sents

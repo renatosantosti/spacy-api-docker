@@ -1,4 +1,4 @@
-FROM jgontrum/spacyapi:base_v2
+FROM bbieniek/spacyapi:base_v3
 
-ENV languages "en"
+ENV languages "en_core_web_sm"
 RUN cd /app && env/bin/download_models

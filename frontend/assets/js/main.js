@@ -6,7 +6,7 @@
 
 {
     const defaultText = 'displaCy uses JavaScript, SVG and CSS to show you how computers understand language';
-    const defaultModel = 'en';
+    const defaultModel = 'en_core_web_sm';
     const loading = () => document.body.classList.toggle('loading');
     const onError = (err) => $('#error').style.display = 'block';
 
