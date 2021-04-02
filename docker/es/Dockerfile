@@ -1,4 +1,4 @@
 FROM bbieniek/spacyapi:base_v3
 
-ENV languages "es"
+ENV languages "es_core_news_sm"
 RUN cd /app && env/bin/download_models
