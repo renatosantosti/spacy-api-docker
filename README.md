@@ -28,13 +28,13 @@ _Documentation, API- and frontend code based upon [spaCy REST services](https://
 | Image                       | Description                                                       |
 | --------------------------- | ----------------------------------------------------------------- |
 | bbieniek/spacyapi:base_v3   | Base image for spaCy 3.0, containing no language model            |
-| bbieniek/spacyapi:en_v3     | English language model, spaCy 3.0                                 |
-| bbieniek/spacyapi:de_v3     | German language model, spaCy 3.0                                  |
-| bbieniek/spacyapi:es_v3     | Spanish language model, spaCy 3.0                                 |
-| bbieniek/spacyapi:fr_v3     | French language model, spaCy 3.0                                  |
-| bbieniek/spacyapi:pt_v3     | Portuguese language model, spaCy 3.0                              |
-| bbieniek/spacyapi:it_v3     | Italian language model, spaCy 3.0                                 |
-| bbieniek/spacyapi:nl_v3     | Dutch language model, spaCy 3.0                                   |
+| bbieniek/spacyapi:en_v3     | English language model (en_core_web_md), spaCy 3.0                |
+| bbieniek/spacyapi:de_v3     | German language model (de_core_news_sm), spaCy 3.0                |
+| bbieniek/spacyapi:es_v3     | Spanish language model (es_core_news_sm), spaCy 3.0               |
+| bbieniek/spacyapi:fr_v3     | French language model (fr_core_news_sm), spaCy 3.0                |
+| bbieniek/spacyapi:pt_v3     | Portuguese language model (pt_core_news_sm), spaCy 3.0            |
+| bbieniek/spacyapi:it_v3     | Italian language model (it_core_news_sm), spaCy 3.0               |
+| bbieniek/spacyapi:nl_v3     | Dutch language model (nl_core_news_sm), spaCy 3.0                 |
 | bbieniek/spacyapi:all_v3    | Contains EN, DE, ES, PT, NL, IT and FR language models, spaCy 3.0 |
 
 ---
