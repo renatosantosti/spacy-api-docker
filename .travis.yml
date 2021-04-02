@@ -13,7 +13,6 @@ install:
   - travis_wait 30 docker build -t bbieniek/spacyapi:base_v3 .
   - travis_wait 30 docker build -t bbieniek/spacyapi:en_v3 -f docker/en/Dockerfile .
   - travis_wait 30 docker build -t bbieniek/spacyapi:en_v3_lg -f docker/en/Dockerfile.lg .
-  - travis_wait 30 docker build -t bbieniek/spacyapi:en_v3_md -f docker/en/Dockerfile.md .
   - travis_wait 30 docker build -t bbieniek/spacyapi:de_v3 -f docker/de/Dockerfile .
   - travis_wait 30 docker build -t bbieniek/spacyapi:es_v3 -f docker/es/Dockerfile .
   - travis_wait 30 docker build -t bbieniek/spacyapi:fr_v3 -f docker/fr/Dockerfile .
