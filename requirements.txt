@@ -1,4 +1,4 @@
-spacy==3.0.0
-falcon==2.0.0
+spacy==3.6.0
+falcon==4.0.2
 pytest
-requests==2.21.0
+requests==2.32.3
